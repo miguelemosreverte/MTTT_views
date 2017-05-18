@@ -3,7 +3,6 @@
 
 <head>
     <!--  <title>{{ title }}</title> -->
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -32,29 +31,12 @@
 
     <!-- Own css -->
     <link rel="stylesheet" href="TTT_public_folder/stylesheets/style.css" />
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="TTT_public_folder/javascripts/jquery.js"></script>
+    <script src="TTT_public_folder/javascripts/jquery-ui.js"></script>
     <script src="TTT_public_folder/javascripts/difflib-browser.js"></script>
     <script src="TTT_public_folder/javascripts/application.js"></script>
     <script src="TTT_public_folder/javascripts/handleFileSelect.js"></script>
-    <script>
-      $( function() {
-        $( ".resizableFieldSet" ).resizable({
-          handles: 'e',
-          resize: function() {
-            var resizableFieldSet = $(".resizableFieldSet");
-            var resizableFieldSet2 = $(".resizableFieldSet2");
-            var resizableFieldSetContainer = $(".resizableFieldSetContainer");
-            var newWidth = resizableFieldSetContainer.innerWidth() - resizableFieldSet.outerWidth();
-            var minWidth = resizableFieldSetContainer.css("min-width");
-            if (newWidth > minWidth)
-              resizableFieldSet2.outerWidth(newWidth);
-            }
-          });
-        });
-    </script>
-    <script src="TTT_public_folder/javascripts/jquery.js"></script>
-    <script src="TTT_public_folder/javascripts/jquery-ui.js"></script>
+    <script src="TTT_public_folder/javascripts/resizable.js"></script>
 
 </head>
 
@@ -69,7 +51,9 @@
 
         <li><a href="#Training" data-toggle="tab">Training</a></li>
         <li><a href="#MachineTranslation" data-toggle="tab">Machine Translation</a></li>
-        <li><a href="#PostEdition" data-toggle="tab">Post Edition</a></li>
+        <li><a href="#Evaluation" data-toggle="tab">Evaluation</a></li>
+        <li><a href="#PostEdition" data-toggle="tab">Post-Editing</a></li>
+        <li><a href="#Differences" data-toggle="tab">Differences</a></li>
 
     </ul>
 
@@ -83,25 +67,26 @@
                     <div class="col-sm-3">
                         <fieldset><legend>Languages</legend>
                             Source
-                            <select name="src_lang">
+                            <select name="source_lang">
                                 <option value="en">en</option>
                                     <option value="fr">fr</option>
                                         <option value="de">de</option>
                             </select>
                             <br>
                             Target&nbsp;
-                            <select name="trg_lang">
+                            <select name="target_lang">
                                 <option value="en">en</option>
                                     <option value="fr">fr</option>
                                         <option value="de">de</option>
                             </select>
                         </fieldset>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-9">
 
                         <fieldset><legend>Language Model Name</legend>
                           <br>
-                          <input type="text" name="LM_name" style="width:100%">
+                          <input type="text" name="LM_name" style="width:49%">
+                            <button style="float:right;width:49%;margin: 0px 0 0px 0px;">Start Corpus Preparation</button>
                         </fieldset>
                     </div>
                 </div>
@@ -130,11 +115,8 @@
                               <div id="progress_bar"><div class="percent">0%</div></div>
                               </fieldset>
                         </div>
-                            <div class="row">
-                              <fieldset>
-                                <button>Start Corpus Preparation</button>
-                              </fieldset>
-                          </div>
+                        <div class="row">
+                        </div>
                     </div>
                 </div>
 
@@ -158,39 +140,116 @@
                   <fieldset style="width:50%"><legend>Language Model</legend>
                     <input type="file" class="files"  name="MT">
                     <div id="progress_bar"><div class="percent">0%</div></div>
+                    <br><select id="select_LM"></select><div id="select_LM_success"></div>
                   </fieldset>
 
                   <div id="MachineTranslationResults" class="well" style="  height:100%; width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"></div>
 
         </div>
+
+        <div class="tab-pane fade" id="Evaluation">
+          <form id="EvaluationForm" method="post">
+
+            <div class="row">
+                <div class="col-sm-6">
+                  <button type="button" onclick="$('#EvaluationFiles').slideToggle();"style="min-height:5px;"> </button>
+                    <fieldset id="EvaluationFiles"><legend></legend>
+                      <div class=pseudo_legend> Unchanged Machine Translation</div><br>
+                      <input type="file" class="files"  name="UneditedMT">
+                      <div id="progress_bar"><div class="percent">0%</div></div>
+                        <div class=pseudo_legend> Post-Edited Machine Translation</div><br>
+                      <input type="file" class="files"  name="EditedMT">
+                      <div id="progress_bar"><div class="percent">0%</div></div>
+                      <button id="EvaluateButton">Evaluate</button>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset id="EvaluationCheckboxes"><legend>Language Model Name</legend>
+                      WER <input type="checkbox" value="WER" name="WER">
+                      PER <input type="checkbox" value="PER" name="PER">
+                      HTER <input type="checkbox" value="TER" name="HTER">
+                      <br>
+                      BLEU <input type="checkbox" value="BLEU" name="BLEU">
+                      BLEU2GRAM <input type="checkbox" value="BLEU2GRAM" name="BLEU2GRAM">
+                      BLEU3GRAM <input type="checkbox" value="BLEU3GRAM" name="BLEU3GRAM">
+                      BLEU4GRAM <input type="checkbox" value="BLEU4GRAM" name="BLEU4GRAM">
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <fieldset><legend>Results</legend>
+                        <div id="EvaluationResults" class="well" style="  height:100%; min-height:340px; width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"></div>
+                    </fieldset>
+                </div>
+            </div>
+
+          </form>
+        </div>
+
         <div class="tab-pane fade" id="PostEdition">
 
           <div class="row">
             <div class="col-sm-6">
                   <fieldset><legend></legend>
-                    <div class=pseudo_legend> Source Text</div><br>
-                    <input id="Untranslated_PE" type="file" class="files" name="Untranslated_PE">
+
+                    <input id="BilingualPE"
+                      style="float:right;margin-top:1px;margin-left:5px;"
+                      type="checkbox"
+                      onclick="if (!this.checked){
+                              $('#Translated_PE_menu').css('visibility','hidden');
+                              }else{
+                              $('#Translated_PE_menu').css('visibility','visible');
+                              }">
+                    <div style="float:right" class=pseudo_legend> Bilingual</div><br>
+
+                    <div class=pseudo_legend> MT text</div><br>
+                    <input id="Untranslated_PE" type="file" class="files" name="Translated_PE">
                     <div id="progress_bar"><div class="percent">0%</div></div>
-                    <div class=pseudo_legend> Target Text</div><br>
-                    <input id="Translated_PE" type="file" class="files" name="Translated_PE">
+
+
+                    <div id="Translated_PE_menu" style="visibility:hidden;">
+                    <div class=pseudo_legend> Source</div>
+                    <input id="Translated_PE" type="file" class="files" name="Untranslated_PE">
                     <div id="progress_bar"><div class="percent">0%</div></div>
-                    <button id="SavePostEditionButton">Save</button>
+                    </div>
+
+                    <button style="visibility:hidden;" id="SavePostEditionButton">Save</button>
                   </fieldset>
           </div>
-        </div>
-        <div class="row">
-                  <div class="resizableFieldSetContainer" style="position:absolute;width:100%">
-                  <fieldset class="resizableFieldSet" style=" width:40% !important;float: left;"><legend></legend>
-                    <table class="tableSection" id="PostEditionTable"></table>
-                  </fieldset>
-                          <fieldset class="resizableFieldSet2"><legend></legend>
-                            <table class="tableSection" id="PostEditionTable2" style="float: right;"></table>
-                          </fieldset>
-                  </div>
-        </div>
-    </div>
 
+          </div>
+          <div class="row">
+                    <div class="resizableFieldSetContainer" style="position:absolute;width:100%">
+                    <fieldset class="resizableFieldSet" style=" width:80% !important;float: left;"><legend></legend>
+                      <div class="Scroll">
+                      <table class="tableSection" id="PostEditionTable"></table>
+                      </div>
+                    </fieldset>
+                            <fieldset class="resizableFieldSet2"><legend></legend>
+                              <input type="text"id="PostEditionSearch" placeholder="Search here:">
+                              <table class="tableSection" id="PostEditionSearchTable" style="float: right;"></table>
+                            </fieldset>
+                    </div>
+          </div>
+        </div>
 
+        <div class="tab-pane fade" id="Differences">
+
+          <div class="row">
+                    <div class="resizableFieldSetContainer" style="position:absolute;width:100%">
+                    <fieldset class="resizableFieldSet" style=" width:80% !important;float: left;"><legend></legend>
+                      <table class="tableSection" id="DifferencesTable"></table>
+                    </fieldset>
+                            <fieldset class="resizableFieldSet2"><legend></legend>
+                              <input type="text" id="DifferencesSearch" placeholder="Search here:">
+                              <table class="tableSection" id="DifferencesSearchTable" style="float: right;"></table>
+                            </fieldset>
+                    </div>
+          </div>
+        </div>
 
 
 </body>
