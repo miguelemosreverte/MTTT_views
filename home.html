@@ -25,6 +25,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   	<link href="TTT_public_folder/stylesheets/jquery-ui.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -84,9 +85,9 @@
                     <div class="col-sm-9">
 
                         <fieldset><legend>Language Model Name</legend>
-                          <br>
-                          <input type="text" name="LM_name" style="width:49%">
-                            <button style="float:right;width:49%;margin: 0px 0 0px 0px;">Start Corpus Preparation</button>
+                          <span><input type="text" id="LM_name" name="LM_name" style="width:50%"></span>
+                            <span><button style="width:40%;margin: 0px 0 0px 0px;">Start Corpus Preparation</button></span>
+                            <span><button id="CorpusLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
                         </fieldset>
                     </div>
                 </div>
@@ -128,7 +129,8 @@
         <div class="tab-pane fade" id="Training">
             <div class="tab-pane fade in active" id="home">
                     <fieldset style="width:50%"><legend>Training</legend>
-                        <button id="TrainingButton">Start</button>
+                        <span><button id="TrainingButton">Start</button></span>
+                        <span><button id="TrainingLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
                     </fieldset>
 
                     <div id="TrainingResults" class="well" style="  height:100%; width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"></div>
@@ -140,8 +142,11 @@
                   <fieldset style="width:50%"><legend>Language Model</legend>
                     <input type="file" class="files"  name="MT">
                     <div id="progress_bar"><div class="percent">0%</div></div>
-                    <br><select id="select_LM"></select><div id="select_LM_success"></div>
-                  </fieldset>
+                    <br>
+                    <span><select id="select_LM"></select></span>
+                    <span>  <button  id="download_LM" style="visibility:hidden; width:30px"><i class="fa fa-file-archive-o"></i></button></span>
+                    <span><button id="MachineTranslationLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
+                </fieldset>
 
                   <div id="MachineTranslationResults" class="well" style="  height:100%; width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"></div>
 
@@ -152,15 +157,18 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                  <button type="button" onclick="$('#EvaluationFiles').slideToggle();"style="min-height:5px;"> </button>
-                    <fieldset id="EvaluationFiles"><legend></legend>
-                      <div class=pseudo_legend> Unchanged Machine Translation</div><br>
+                  <fieldset id="EvaluationFiles"><legend></legend>
+                      <div id="EvaluationFilesMenu">
+                        <div class=pseudo_legend> Unchanged Machine Translation</div><br>
                       <input type="file" class="files"  name="UneditedMT">
                       <div id="progress_bar"><div class="percent">0%</div></div>
                         <div class=pseudo_legend> Post-Edited Machine Translation</div><br>
                       <input type="file" class="files"  name="EditedMT">
                       <div id="progress_bar"><div class="percent">0%</div></div>
-                      <button id="EvaluateButton">Evaluate</button>
+                      <span><button id="EvaluateButton">Evaluate</button></span>
+                      <span><button id="EvaluateLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
+
+                      </div>
                     </fieldset>
                 </div>
                 <div class="col-sm-6">
@@ -224,7 +232,7 @@
           <div class="row">
                     <div class="resizableFieldSetContainer" style="position:absolute;width:100%">
                     <fieldset class="resizableFieldSet" style=" width:80% !important;float: left;"><legend></legend>
-                      <div class="Scroll">
+                      <div id="scrollContentPostEditionTable">
                       <table class="tableSection" id="PostEditionTable"></table>
                       </div>
                     </fieldset>
@@ -241,7 +249,9 @@
           <div class="row">
                     <div class="resizableFieldSetContainer" style="position:absolute;width:100%">
                     <fieldset class="resizableFieldSet" style=" width:80% !important;float: left;"><legend></legend>
+                      <div id="scrollContentDifferencesTable">
                       <table class="tableSection" id="DifferencesTable"></table>
+                      </div>
                     </fieldset>
                             <fieldset class="resizableFieldSet2"><legend></legend>
                               <input type="text" id="DifferencesSearch" placeholder="Search here:">
