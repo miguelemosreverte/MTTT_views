@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-sm-9">
 
-                        <fieldset><legend>Language Model Name</legend>
+                        <fieldset><legend>Model Name</legend>
                           <span><input type="text" id="LM_name" name="LM_name" style="width:50%"></span>
                             <span><button style="width:40%;margin: 0px 0 0px 0px;">Start Corpus Preparation</button></span>
                             <span><button id="CorpusLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
@@ -101,7 +101,7 @@
 
                         <div class="row">
 
-                            <fieldset><legend>Translation Model</legend>
+                            <fieldset><legend>Corpus for Translation Model</legend>
                             <div class=pseudo_legend> Source Text</div><br>
                             <input type="file" class="files" name="TM_source">
                             <div id="progress_bar"><div class="percent">0%</div></div>
@@ -111,7 +111,7 @@
                             </fieldset>
                         </div>
                             <div class="row">
-                              <fieldset><legend>Language Model</legend>
+                              <fieldset><legend>Corpus for Language Model</legend>
                               <input type="file" class="files" name="LM">
                               <div id="progress_bar"><div class="percent">0%</div></div>
                               </fieldset>
@@ -139,12 +139,12 @@
         </div>
 
         <div class="tab-pane fade" id="MachineTranslation">
-                  <fieldset style="width:50%"><legend>Language Model</legend>
+                  <fieldset style="width:50%"><legend>Choose a model to translate</legend>
                     <input type="file" class="files"  name="MT">
                     <div id="progress_bar"><div class="percent">0%</div></div>
                     <br>
                     <span><select id="select_LM"></select></span>
-                    <span>  <button  id="download_LM" style="visibility:hidden; width:30px"><i class="fa fa-file-archive-o"></i></button></span>
+                    <span>  <button  id="download_LM" style="visibility:hidden; width:150px"><i class="fa fa-file-archive-o"></i>&nbsp;&nbsp;Download</button></span>
                     <span><button id="MachineTranslationLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
                 </fieldset>
 
@@ -159,10 +159,10 @@
                 <div class="col-sm-6">
                   <fieldset id="EvaluationFiles"><legend></legend>
                       <div id="EvaluationFilesMenu">
-                        <div class=pseudo_legend> Unchanged Machine Translation</div><br>
+                        <div class=pseudo_legend> Source</div>
                       <input type="file" class="files"  name="UneditedMT">
-                      <div id="progress_bar"><div class="percent">0%</div></div>
-                        <div class=pseudo_legend> Post-Edited Machine Translation</div><br>
+                      <div id="progress_bar"><div class="percent">0%</div></div><br><br><br>
+                        <div class=pseudo_legend> Target</div>
                       <input type="file" class="files"  name="EditedMT">
                       <div id="progress_bar"><div class="percent">0%</div></div>
                       <span><button id="EvaluateButton">Evaluate</button></span>
@@ -172,7 +172,7 @@
                     </fieldset>
                 </div>
                 <div class="col-sm-6">
-                    <fieldset id="EvaluationCheckboxes"><legend>Language Model Name</legend>
+                    <fieldset id="EvaluationCheckboxes"><legend>Select automatic metrics</legend>
                       WER <input type="checkbox" value="WER" name="WER">
                       PER <input type="checkbox" value="PER" name="PER">
                       HTER <input type="checkbox" value="TER" name="HTER">
@@ -213,9 +213,9 @@
                               }">
                     <div style="float:right" class=pseudo_legend> Bilingual</div><br>
 
-                    <div class=pseudo_legend> MT text</div><br>
+                    <div class=pseudo_legend> MT</div>
                     <input id="Untranslated_PE" type="file" class="files" name="Translated_PE">
-                    <div id="progress_bar"><div class="percent">0%</div></div>
+                    <div id="progress_bar"><div class="percent">0%</div></div><br><br><br>
 
 
                     <div id="Translated_PE_menu" style="visibility:hidden;">
