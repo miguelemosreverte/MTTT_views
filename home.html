@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="TTT_public_folder/stylesheets/style.css" />
     <script src="TTT_public_folder/javascripts/jquery.js"></script>
     <script src="TTT_public_folder/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="TTT_public_folder/javascripts/statistics.js"></script>
     <script src="TTT_public_folder/javascripts/difflib-browser.js"></script>
     <script src="TTT_public_folder/javascripts/application.js"></script>
     <script src="TTT_public_folder/javascripts/handleFileSelect.js"></script>
@@ -42,6 +44,18 @@
 </head>
 
 <body>
+
+    <div class="container body-content">
+             <div class="form-horizontal" style="float:right">
+               <div class="input-group">
+                   <input type="text" class="form-control" placeholder="Username" id="upload_username_input">
+                   <span class="input-group-btn" style="width:0;">
+                       <button id="upload_username_button" class="btn btn-default" type="button">Login</button>
+                   </span>
+               </div>
+             </div>
+    </div>
+
     <ul id="myTab" class="nav nav-tabs">
         <li class="active">
             <a href="#home" data-toggle="tab">
@@ -54,6 +68,7 @@
         <li><a href="#Evaluation" data-toggle="tab">Evaluation</a></li>
         <li><a href="#PostEdition" data-toggle="tab">Post-Editing</a></li>
         <li><a href="#Differences" data-toggle="tab">Differences</a></li>
+        <li><a href="#Statistics" data-toggle="tab">Statistics</a></li>
 
     </ul>
 
@@ -79,7 +94,7 @@
 
                         <fieldset><legend>Model Name</legend>
                           <span><input type="text" id="LM_name" name="LM_name" style="width:50%"></span>
-                            <span><button style="width:40%;margin: 0px 0 0px 0px;">Start Corpus Preparation</button></span>
+                            <span><button style="width:40%;margin: 0px 0 0px 0px;display:None">Start Corpus Preparation</button></span>
                             <span><button id="CorpusLoading" class="buttonload"><i class="fa fa-circle-o-notch fa-spin"></i></button></span>
                         </fieldset>
                     </div>
@@ -232,7 +247,7 @@
                       </div>
                     </fieldset>
                             <fieldset class="resizableFieldSet2"><legend></legend>
-                              <input type="text"id="PostEditionSearch" placeholder="Search here:">
+                              <input type="text" class="Search" id="PostEditionSearch" placeholder="Search here:">
                               <table class="tableSection" id="PostEditionSearchTable" style="float: right;"></table>
                             </fieldset>
                     </div>
@@ -249,13 +264,46 @@
                       </div>
                     </fieldset>
                             <fieldset class="resizableFieldSet2"><legend></legend>
-                              <input type="text" id="DifferencesSearch" placeholder="Search here:">
+                              <input type="text" class="Search" id="DifferencesSearch" placeholder="Search here:">
                               <table class="tableSection" id="DifferencesSearchTable" style="float: right;"></table>
                             </fieldset>
                     </div>
           </div>
         </div>
 
+        <div class="tab-pane fade" id="Statistics">
+
+          <div class="row">
+                <div class="Additions">
+                      <fieldset class="resizableFieldSet" style=" width:20% !important;float: left;"><legend></legend>
+                        <input type="text" class="Search"  id="StatisticsSearch1" placeholder="Search here:">
+                        <table class="tableSection" id="StatisticsSearch1Table" style="float: right;"></table>
+                      </fieldset>
+                              <div id="additions_pie_chart" class="pie_chart"></div>
+                </div>
+          </div>
+
+          <div class="row">
+                <div class="Deletions">
+                    <fieldset class="resizableFieldSet" style=" width:20% !important;float: left;"><legend></legend>
+                      <input type="text" class="Search" id="StatisticsSearch2" placeholder="Search here:">
+                      <table class="tableSection" id="StatisticsSearch2Table" style="float: right;"></table>
+                    </fieldset>
+                            <div id="deletions_pie_chart" class="pie_chart"></div>
+                </div>
+          </div>
+
+          <div class="row">
+                <div class="Mix">
+                    <fieldset class="resizableFieldSet" style=" width:20% !important;float: left;"><legend></legend>
+                      <input type="text" class="Search" id="StatisticsSearch3" placeholder="Search here:">
+                      <table class="tableSection" id="StatisticsSearch3Table" style="float: right;"></table>
+                    </fieldset>
+                            <div id="mix_pie_chart" class="pie_chart"></div>
+                </div>
+          </div>
+
+        </div>
         <!-- maybe this could work? <a class="arrow_box" href="https://github.com/miguelemosreverte/TTT_electron">Windows-only standalone version<a>-->
 
 </body>
