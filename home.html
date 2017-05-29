@@ -106,12 +106,21 @@
                         </fieldset>
                     </div>
                     <div class="col-sm-6">
-
                         <div class="row">
-
-                        <iframe src="http://10.5.0.6:9000/" style="width:500px;height:500px;" frameBorder="0">></iframe>
+                           <fieldset><legend>Corpus for Translation Model</legend>
+                           <div class=pseudo_legend> Source Text</div><br>
+                           <input type="file" class="files" name="TM_source">
+                           <div id="progress_bar"><div class="percent">0%</div></div>
+                           <div class=pseudo_legend> Target Text</div><br>
+                           <input type="file" class="files" name="TM_target">
+                           <div id="progress_bar"><div class="percent">0%</div></div>
+                           </fieldset>
                         </div>
                         <div class="row">
+                           <fieldset><legend>Corpus for Language Model</legend>
+                           <input type="file" class="files" name="LM">
+                           <div id="progress_bar"><div class="percent">0%</div></div>
+                           </fieldset>
                         </div>
                     </div>
                 </div>
